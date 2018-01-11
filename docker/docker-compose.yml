@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+
+  nginx:
+    container_name: nginx
+    build: ./services/nginx
+    links:
+      - php
+    ports:
+      - 8080:80
+    working_dir: /application
+    volumes:
+      - ../:/application
+    env_file:
+      - .env
+
+  php:
+    container_name: php
+    build: ./services/php
+    links:
+      - mariadb
+      - redis
+    working_dir: /application
+    volumes:
+      - ../:/application
+    env_file:
+      - .env
+
+  mariadb:
+    container_name: mariadb
+    image: mariadb
+    restart: always
+    volumes:
+      - ../storage/database:/var/lib/mysql
+    env_file:
+      - .env
+
+  redis:
+    container_name: redis
+    image: redis
+    restart: always
+    env_file:
+      - .env
