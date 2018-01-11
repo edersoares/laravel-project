@@ -18,3 +18,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/tokens', 'Auth\GenerateTokenController@generateForm')->name('tokens.generateForm');
+Route::post('/tokens', 'Auth\GenerateTokenController@generate')->name('tokens.generate');
