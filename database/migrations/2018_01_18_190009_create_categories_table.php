@@ -18,7 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->unsignedInteger('category_id')->nullable();
             $table->string('name', 32);
             $table->string('slug', 32);
-            $table->boolean('active');
+            $table->boolean('active')->default(true);
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories');
         });
