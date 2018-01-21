@@ -9,6 +9,6 @@ $factory->define(App\Account::class, function (Faker $faker) {
     return [
         'name' => $name,
         'slug' => $slug,
-        'boolean' => $faker->boolean,
+        'active' => $faker->boolean,
     ];
 });

@@ -12,6 +12,6 @@ $factory->define(App\Tag::class, function (Faker $faker) {
         },
         'name' => $name,
         'slug' => $slug,
-        'boolean' => $faker->boolean,
+        'active' => $faker->boolean,
     ];
 });

@@ -13,6 +13,6 @@ $factory->define(App\Category::class, function (Faker $faker) {
         'category_id' => null,
         'name' => $name,
         'slug' => $slug,
-        'boolean' => $faker->boolean,
+        'active' => $faker->boolean,
     ];
 });

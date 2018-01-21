@@ -12,6 +12,6 @@ $factory->define(App\UserGroup::class, function (Faker $faker) {
         },
         'name' => $name,
         'slug' => $slug,
-        'boolean' => $faker->boolean,
+        'active' => $faker->boolean,
     ];
 });
