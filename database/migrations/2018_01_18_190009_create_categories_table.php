@@ -15,11 +15,13 @@ class CreateCategoriesTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('account_id');
             $table->unsignedInteger('category_id')->nullable();
             $table->string('name', 32);
             $table->string('slug', 32);
             $table->boolean('active')->default(true);
             $table->timestamps();
+            $table->foreign('account_id')->references('id')->on('accounts');
             $table->foreign('category_id')->references('id')->on('categories');
         });
     }
