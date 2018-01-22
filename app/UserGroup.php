@@ -24,4 +24,13 @@ class UserGroup extends Model
     protected $fillable = [
         'name', 'slug', 'active'
     ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'account_id'
+    ];
 }

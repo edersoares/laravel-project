@@ -25,4 +25,13 @@ class Category extends Model
     protected $fillable = [
         'category_id', 'name', 'slug', 'active'
     ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'account_id'
+    ];
 }
