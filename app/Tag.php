@@ -13,8 +13,9 @@ class Tag extends Model
      */
     protected $casts = [
         'id' => 'integer',
+        'account_id' => 'integer',
         'category_id' => 'integer',
-        'active' => 'boolean'
+        'active' => 'boolean',
     ];
 
     /**
