@@ -27,6 +27,19 @@ services:
     env_file:
       - .env
 
+  worker:
+    container_name: worker
+    build: ./services/php-worker
+    links:
+      - redis
+    working_dir: /application
+    restart: always
+    command: ["php", "artisan", "queue:work", "--tries=3"]
+    volumes:
+      - ../:/application
+    env_file:
+      - .env
+
   mariadb:
     container_name: mariadb
     image: mariadb
