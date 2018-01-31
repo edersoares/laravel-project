@@ -1,4 +1,4 @@
-FROM php:7.1-cli
+FROM php:cli
 
 MAINTAINER Eder Soares
 
@@ -10,5 +10,7 @@ RUN docker-php-ext-install pdo_mysql
 RUN pecl install redis
 RUN docker-php-ext-enable redis
 RUN rm -rf /tmp/pear
+
+RUN docker-php-ext-install pcntl
 
 COPY php.ini /usr/local/etc/php/php.ini
