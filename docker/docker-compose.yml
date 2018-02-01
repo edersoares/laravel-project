@@ -65,3 +65,5 @@ services:
       - 9300:9300
     volumes:
       - ../storage/elasticsearch:/usr/share/elasticsearch/data
+    environment:
+      - discovery.type=single-node
