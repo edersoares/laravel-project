@@ -32,6 +32,7 @@ services:
     build: ./services/php-worker
     links:
       - redis
+      - elasticsearch
     working_dir: /application
     restart: always
     command: ["php", "artisan", "horizon"]
@@ -55,3 +56,10 @@ services:
     restart: always
     env_file:
       - .env
+
+  elasticsearch:
+    image: elasticsearch
+    container_name: elasticsearch
+    ports:
+      - 9200:9200
+      - 9300:9300

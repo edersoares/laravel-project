@@ -88,4 +88,20 @@ return [
         'secret' => env('ALGOLIA_SECRET', ''),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Elasticsearch Configuration
+    |--------------------------------------------------------------------------
+    |
+    | See more in https://www.elastic.co/.
+    |
+    */
+
+    'elasticsearch' => [
+        'hosts' => [
+            'localhost:9200'
+        ],
+        'index' => env('SCOUT_INDEX', 'index')
+    ],
+
 ];
