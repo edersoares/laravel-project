@@ -16,6 +16,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Route::pattern('id', '[0-9]+');
+
         Route::macro('api', function ($endpoint, $controller) {
             Route::get($endpoint, "{$controller}@index")->name("{$endpoint}.index");
             Route::post($endpoint, "{$controller}@create")->name("{$endpoint}.create");
