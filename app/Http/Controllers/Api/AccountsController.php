@@ -71,19 +71,4 @@ class AccountsController extends Controller
 
         return $model;
     }
-
-    public function search(Request $request)
-    {
-        if ($query = $request->query('query')) {
-            return [
-                'source' => 'elastic',
-                'data' => Account::search($query)->get()
-            ];
-        }
-
-        return [
-            'source' => 'database',
-            'data' => Account::all()
-        ];
-    }
 }
