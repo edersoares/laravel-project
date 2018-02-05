@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Support\Scout\EngineManager as ScoutEngineManager;
 use App\Support\Scout\Engines\ElasticsearchEngine;
 use Elasticsearch\ClientBuilder;
 use Illuminate\Support\Facades\Route;
