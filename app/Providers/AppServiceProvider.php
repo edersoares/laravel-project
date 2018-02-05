@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Support\Scout\EngineManager as ScoutEngineManager;
+use App\Support\Scout\Engines\ElasticsearchEngine;
+use Elasticsearch\ClientBuilder;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Scout\EngineManager;
@@ -25,6 +27,15 @@ class AppServiceProvider extends ServiceProvider
             Route::put("{$endpoint}/{id}", "{$controller}@update")->name("{$endpoint}.update");
             Route::delete("{$endpoint}/{id}", "{$controller}@delete")->name("{$endpoint}.delete");
         });
+
+        resolve(EngineManager::class)->extend('elasticsearch', function () {
+
+            $client = ClientBuilder::create()
+                ->setHosts(config('scout.elasticsearch.hosts'))
+                ->build();
+
+            return new ElasticsearchEngine($client);
+        });
     }
 
     /**
@@ -34,8 +45,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(EngineManager::class, function ($app) {
-            return new ScoutEngineManager($app);
-        });
+        //
     }
 }

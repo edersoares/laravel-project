@@ -92,7 +92,7 @@ class ElasticsearchEngine extends Engine
             'body' => [
                 'query' => [
                     'match' => [
-                        'name' => 'abc'
+                        'name' => $builder->query
                     ]
                 ]
             ]
@@ -111,7 +111,21 @@ class ElasticsearchEngine extends Engine
      */
     public function paginate(Builder $builder, $perPage, $page)
     {
-        // TODO: Implement paginate() method.
+        $params = [
+            'index' => $this->getIndex(),
+            'type' => $builder->model->searchableAs(),
+            'body' => [
+                'size' => $perPage,
+                'from' => $page * $perPage - $perPage,
+                'query' => [
+                    'match' => [
+                        'name' => $builder->query
+                    ]
+                ]
+            ]
+        ];
+
+        return $this->client->search($params);
     }
 
     /**

@@ -21,6 +21,7 @@ services:
     links:
       - mariadb
       - redis
+      - elasticsearch
     working_dir: /application
     volumes:
       - ../:/application:cached
