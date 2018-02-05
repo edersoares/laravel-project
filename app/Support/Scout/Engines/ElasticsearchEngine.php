@@ -109,11 +109,9 @@ class ElasticsearchEngine extends Engine
         $params = [
             'index' => $this->getIndex(),
             'type' => $builder->model->searchableAs(),
-            'body' => [
-                'size' => $perPage,
-                'from' => $page * $perPage - $perPage,
-                'q' => $builder->query
-            ]
+            'size' => $perPage,
+            'from' => $page * $perPage - $perPage,
+            'q' => $builder->query
         ];
 
         return $this->client->search($params);
