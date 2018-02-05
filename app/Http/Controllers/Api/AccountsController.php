@@ -11,15 +11,15 @@ class AccountsController extends Controller
     /**
      * @param Request $request
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function index(Request $request)
     {
         if ($search = $request->query('search')) {
-            return Account::search($search)->get();
+            return Account::search($search)->paginate();
         }
 
-        return Account::query()->get();
+        return Account::query()->paginate();
     }
 
     /**
