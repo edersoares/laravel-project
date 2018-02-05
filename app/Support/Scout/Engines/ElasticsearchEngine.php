@@ -147,7 +147,7 @@ class ElasticsearchEngine extends Engine
             return $item['_source'];
         }, $results['hits']['hits']);
 
-        return $model->hydrate($data);
+        return $model::hydrate($data);
     }
 
     /**
