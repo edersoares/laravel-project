@@ -3,6 +3,7 @@
 namespace App\Support\Scout\Engines;
 
 use Elasticsearch\Client;
+use Illuminate\Database\Eloquent\Collection;
 use Laravel\Scout\Builder;
 use Laravel\Scout\Engines\Engine;
 
@@ -89,13 +90,7 @@ class ElasticsearchEngine extends Engine
         $params = [
             'index' => $this->getIndex(),
             'type' => $builder->model->searchableAs(),
-            'body' => [
-                'query' => [
-                    'match' => [
-                        'name' => $builder->query
-                    ]
-                ]
-            ]
+            'q' => $builder->query
         ];
 
         return $this->client->search($params);
@@ -117,11 +112,7 @@ class ElasticsearchEngine extends Engine
             'body' => [
                 'size' => $perPage,
                 'from' => $page * $perPage - $perPage,
-                'query' => [
-                    'match' => [
-                        'name' => $builder->query
-                    ]
-                ]
+                'q' => $builder->query
             ]
         ];
 
@@ -136,7 +127,9 @@ class ElasticsearchEngine extends Engine
      */
     public function mapIds($results)
     {
-        // TODO: Implement mapIds() method.
+        return array_map(function ($item) {
+            return $item['_id'];
+        }, $results['hits']['hits']);
     }
 
     /**
@@ -148,7 +141,15 @@ class ElasticsearchEngine extends Engine
      */
     public function map($results, $model)
     {
-        // TODO: Implement map() method.
+        if (count($results['hits']['hits']) === 0) {
+            return Collection::make();
+        }
+
+        $data = array_map(function ($item) {
+            return $item['_source'];
+        }, $results['hits']['hits']);
+
+        return $model->hydrate($data);
     }
 
     /**
@@ -159,6 +160,6 @@ class ElasticsearchEngine extends Engine
      */
     public function getTotalCount($results)
     {
-        // TODO: Implement getTotalCount() method.
+        return $results['hits']['total'];
     }
 }
