@@ -9,10 +9,16 @@ use Illuminate\Http\Request;
 class AccountsController extends Controller
 {
     /**
+     * @param Request $request
+     *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($search = $request->query('search')) {
+            return Account::search($search)->get();
+        }
+
         return Account::query()->get();
     }
 
@@ -64,5 +70,20 @@ class AccountsController extends Controller
         $model->delete();
 
         return $model;
+    }
+
+    public function search(Request $request)
+    {
+        if ($query = $request->query('query')) {
+            return [
+                'source' => 'elastic',
+                'data' => Account::search($query)->get()
+            ];
+        }
+
+        return [
+            'source' => 'database',
+            'data' => Account::all()
+        ];
     }
 }
