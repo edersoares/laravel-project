@@ -4,5 +4,17 @@ namespace App\Contracts;
 
 interface Resolver
 {
-    public static function getResolver();
+    /**
+     * Return the abstract implementation.
+     *
+     * @return string
+     */
+    public static function getAbstract();
+
+    /**
+     * Return the concrete instance.
+     *
+     * @return mixed
+     */
+    public static function getConcrete();
 }

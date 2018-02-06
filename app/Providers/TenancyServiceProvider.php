@@ -25,6 +25,6 @@ class TenancyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(TagsRepository::class, TagsRepositoryResolver::getResolver());
+        $this->app->bind(TagsRepositoryResolver::getAbstract(), TagsRepositoryResolver::getConcrete());
     }
 }
