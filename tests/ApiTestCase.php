@@ -52,7 +52,7 @@ abstract class ApiTestCase extends TestCase
 
         $this->get($url)
             ->assertStatus(200)
-            ->assertJsonCount($num);
+            ->assertJsonCount($num, 'data');
     }
 
     /**

@@ -3,12 +3,13 @@
 namespace Tests\Feature\Api;
 
 use App\Account;
+use Illuminate\Foundation\Testing\WithoutEvents;
 use Tests\ApiTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AccountsTest extends ApiTestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithoutEvents;
 
     /**
      * @inheritdoc
