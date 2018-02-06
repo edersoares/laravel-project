@@ -46,17 +46,24 @@ class ElasticsearchEngine extends Engine
      */
     public function update($models)
     {
-        $models->each(function ($model) {
+        $params = [
+            'index' => $this->getIndex(),
+            'type' => $models->first()->searchableAs(),
+            'body' => []
+        ];
 
-            $params = [
-                'index' => $this->getIndex(),
-                'type' => $model->searchableAs(),
-                'id' => $model->getKey(),
-                'body' => $model->toSearchableArray()
+        foreach ($models as $model) {
+
+            $params['body'][] = [
+                'index' => [
+                    '_id' => $model->getKey()
+                ]
             ];
 
-            $this->client->index($params);
-        });
+            $params['body'][] = $model->toSearchableArray();
+        }
+
+        $this->client->bulk($params);
     }
 
     /**
@@ -67,16 +74,21 @@ class ElasticsearchEngine extends Engine
      */
     public function delete($models)
     {
-        $models->each(function ($model) {
+        $params = [
+            'index' => $this->getIndex(),
+            'type' => $models->first()->searchableAs(),
+            'body' => []
+        ];
 
-            $params = [
-                'index' => $this->getIndex(),
-                'type' => $model->searchableAs(),
-                'id' => $model->getKey()
+        foreach ($models as $model) {
+            $params['body'][] = [
+                'delete' => [
+                    '_id' => $model->getKey()
+                ]
             ];
+        }
 
-            $this->client->delete($params);
-        });
+        $this->client->bulk($params);
     }
 
     /**
