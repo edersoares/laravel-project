@@ -3,23 +3,25 @@
 namespace App\Http\Controllers\Api;
 
 use App\Account;
+use App\Contracts\Repositories\AccountsRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class AccountsController extends Controller
 {
     /**
-     * @param Request $request
+     * @param AccountsRepository $repository
+     * @param Request            $request
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function index(Request $request)
+    public function index(AccountsRepository $repository, Request $request)
     {
         if ($search = $request->query('search')) {
-            return Account::search($search)->paginate();
+            return $repository->paginate(1, 10);
         }
 
-        return Account::query()->paginate();
+        return $repository->paginate(1, 10);
     }
 
     /**
