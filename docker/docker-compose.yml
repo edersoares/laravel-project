@@ -65,6 +65,6 @@ services:
       - 9200:9200
       - 9300:9300
     volumes:
-      - ../storage/elasticsearch:/usr/share/elasticsearch/data
+      - ../storage/elasticsearch:/usr/share/elasticsearch/data:cached
     environment:
       - discovery.type=single-node
