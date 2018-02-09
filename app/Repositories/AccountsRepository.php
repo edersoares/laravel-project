@@ -27,6 +27,11 @@ class AccountsRepository implements AccountsRepositoryContract
         // TODO: Implement slug() method.
     }
 
+    public function paginate()
+    {
+        return $this->storage()->newQuery()->paginate();
+    }
+
     public function all()
     {
         return $this->storage()->newQuery()->paginate();
