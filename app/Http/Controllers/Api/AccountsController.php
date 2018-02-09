@@ -18,59 +18,54 @@ class AccountsController extends Controller
     public function index(AccountsRepository $repository, Request $request)
     {
         if ($search = $request->query('search')) {
-            return $repository->search($search);
+            $repository->search($search);
         }
 
         return $repository->paginate(1, 10)->all();
     }
 
     /**
-     * @param Request $request
+     * @param AccountsRepository $repository
+     * @param Request            $request
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function create(Request $request)
+    public function create(AccountsRepository $repository, Request $request)
     {
-        return Account::create($request->all());
+        return $repository->create($request->all());
     }
 
     /**
-     * @param int $id
+     * @param AccountsRepository $repository
+     * @param int                $id
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
     public function browse(AccountsRepository $repository, $id)
     {
-        return Account::findOrFail($id);
+        return $repository->browse($id);
     }
 
     /**
-     * @param int     $id
-     * @param Request $request
+     * @param int                $id
+     * @param AccountsRepository $repository
+     * @param Request            $request
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function update($id, Request $request)
+    public function update($id, AccountsRepository $repository, Request $request)
     {
-        $model = Account::findOrFail($id);
-
-        $model->fill($request->all());
-        $model->saveOrFail();
-
-        return $model;
+        return $repository->update($id, $request->all());
     }
 
     /**
-     * @param int $id
+     * @param int                $id
+     * @param AccountsRepository $repository
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function delete($id)
+    public function delete($id, AccountsRepository $repository)
     {
-        $model = Account::findOrFail($id);
-
-        $model->delete();
-
-        return $model;
+        return $repository->delete($id);
     }
 }
