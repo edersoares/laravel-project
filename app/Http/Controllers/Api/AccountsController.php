@@ -18,7 +18,7 @@ class AccountsController extends Controller
     public function index(AccountsRepository $repository, Request $request)
     {
         if ($search = $request->query('search')) {
-            return $repository->paginate(1, 10);
+            return $repository->search($search);
         }
 
         return $repository->paginate(1, 10)->all();
@@ -39,7 +39,7 @@ class AccountsController extends Controller
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function browse($id)
+    public function browse(AccountsRepository $repository, $id)
     {
         return Account::findOrFail($id);
     }

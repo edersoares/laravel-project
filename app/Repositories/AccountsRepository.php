@@ -46,4 +46,14 @@ class AccountsRepository extends Eloquent implements AccountsRepositoryContract
             $builder->offset($show * $page - $show);
         });
     }
+
+    public function search($search)
+    {
+        return $this->criteria(function ($builder) use ($search) {
+            $builder->where(function ($builder) use ($search) {
+                $builder->where('name', 'like', "%{$search}%");
+                $builder->orWhere('name', 'like', "%{$search}%");
+            });
+        });
+    }
 }
