@@ -21,7 +21,7 @@ class AccountsController extends Controller
             return $repository->paginate(1, 10);
         }
 
-        return $repository->paginate(1, 10);
+        return $repository->paginate(1, 10)->all();
     }
 
     /**

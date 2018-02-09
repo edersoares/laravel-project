@@ -4,9 +4,15 @@ namespace App\Repositories;
 
 use App\Account;
 use App\Contracts\Repositories\AccountsRepository as AccountsRepositoryContract;
+use Nix\Repository\Eloquent;
 
-class AccountsRepository implements AccountsRepositoryContract
+class AccountsRepository extends Eloquent implements AccountsRepositoryContract
 {
+    public function __construct()
+    {
+        parent::__construct(new Account());
+    }
+
     public function storage($storage = null)
     {
         return new Account();
@@ -14,31 +20,30 @@ class AccountsRepository implements AccountsRepositoryContract
 
     public function active()
     {
-        // TODO: Implement active() method.
+        return $this->criteria(function ($builder) {
+            $builder->where('active', true);
+        });
     }
 
     public function inactive()
     {
-        // TODO: Implement inactive() method.
+        return $this->criteria(function ($builder) {
+            $builder->where('active', false);
+        });
     }
 
     public function slug($slug)
     {
-        // TODO: Implement slug() method.
+        return $this->criteria(function ($builder) use ($slug) {
+            $builder->where('slug', $slug);
+        });
     }
 
-    public function paginate()
+    public function paginate($page, $show)
     {
-        return $this->storage()->newQuery()->paginate();
-    }
-
-    public function all()
-    {
-        return $this->storage()->newQuery()->paginate();
-    }
-
-    public function one()
-    {
-        return $this->storage()->newQuery()->first();
+        return $this->criteria(function ($builder) use ($page, $show) {
+            $builder->limit($show);
+            $builder->offset($show * $page - $show);
+        });
     }
 }
