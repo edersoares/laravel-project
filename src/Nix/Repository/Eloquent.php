@@ -12,6 +12,11 @@ abstract class Eloquent
     protected $criteria;
 
     /**
+     * @var array
+     */
+    protected $scopes;
+
+    /**
      * @var \Illuminate\Database\Eloquent\Model
      */
     protected $model;
@@ -22,6 +27,7 @@ abstract class Eloquent
     public function __construct(Model $model)
     {
         $this->criteria = [];
+        $this->scopes = [];
         $this->model = $model;
     }
 
@@ -41,6 +47,10 @@ abstract class Eloquent
     protected function newBuilder()
     {
         $builder = $this->newModel()->newQuery();
+
+        foreach ($this->scopes as $scope) {
+            $scope($builder);
+        }
 
         while ($criteria = array_pop($this->criteria)) {
             $criteria($builder);
@@ -132,6 +142,18 @@ abstract class Eloquent
     public function criteria($criteria)
     {
         $this->criteria[] = $criteria;
+
+        return $this;
+    }
+
+    /**
+     * @param mixed $scope
+     *
+     * @return $this
+     */
+    public function scope($scope)
+    {
+        $this->scopes[] = $scope;
 
         return $this;
     }
