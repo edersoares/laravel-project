@@ -117,6 +117,28 @@ abstract class Eloquent
     }
 
     /**
+     * @param mixed $attributes
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function updateAll($attributes)
+    {
+        return $this->all()->each(function ($model) use ($attributes) {
+            $model->update($attributes);
+        });
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function deleteAll()
+    {
+        return $this->all()->each(function ($model) {
+            $model->delete();
+        });
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Model
      */
     public function one()
