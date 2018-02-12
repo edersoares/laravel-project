@@ -2,6 +2,7 @@
 
 namespace Nix\Repository;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class Eloquent
@@ -127,7 +128,7 @@ abstract class Eloquent
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Collection
      */
     public function all()
     {
@@ -156,5 +157,16 @@ abstract class Eloquent
         $this->scopes[] = $scope;
 
         return $this;
+    }
+
+    /**
+     * @param int $page
+     * @param int $show
+     *
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function paginate($page = 1, $show = 25)
+    {
+        return $this->newBuilder()->paginate($show, ['*'], 'page', $page);
     }
 }
