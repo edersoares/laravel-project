@@ -20,7 +20,10 @@ class AccountsController extends Controller
             $repository->search($search);
         }
 
-        return $repository->paginate(1, 10)->all();
+        return $repository->paginate(
+            $request->query('page', 1),
+            $request->query('show', 25)
+        );
     }
 
     /**

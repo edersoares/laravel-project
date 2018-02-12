@@ -39,14 +39,6 @@ class AccountsRepository extends Eloquent implements AccountsRepositoryContract
         });
     }
 
-    public function paginate($page, $show)
-    {
-        return $this->criteria(function ($builder) use ($page, $show) {
-            $builder->limit($show);
-            $builder->offset($show * $page - $show);
-        });
-    }
-
     public function search($search)
     {
         return $this->criteria(function ($builder) use ($search) {
