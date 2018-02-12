@@ -13,11 +13,6 @@ class AccountsRepository extends Eloquent implements AccountsRepositoryContract
         parent::__construct(new Account());
     }
 
-    public function storage($storage = null)
-    {
-        return new Account();
-    }
-
     public function active()
     {
         return $this->criteria(function ($builder) {
