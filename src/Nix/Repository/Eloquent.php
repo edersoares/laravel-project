@@ -2,7 +2,6 @@
 
 namespace Nix\Repository;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 abstract class Eloquent
@@ -37,9 +36,7 @@ abstract class Eloquent
      */
     protected function newModel()
     {
-        $model = get_class($this->model);
-
-        return new $model;
+        return $this->model->newInstance();
     }
 
     /**
