@@ -8,11 +8,21 @@ use Nix\Repository\Eloquent;
 
 class AccountsRepository extends Eloquent implements AccountsRepositoryContract
 {
+    /**
+     * AccountsRepository constructor.
+     *
+     * @return void
+     */
     public function __construct()
     {
         parent::__construct(new Account());
     }
 
+    /**
+     * Filter by active accounts.
+     *
+     * @return $this
+     */
     public function active()
     {
         return $this->criteria(function ($builder) {
@@ -20,6 +30,11 @@ class AccountsRepository extends Eloquent implements AccountsRepositoryContract
         });
     }
 
+    /**
+     * Filter by inactive accounts.
+     *
+     * @return $this
+     */
     public function inactive()
     {
         return $this->criteria(function ($builder) {
@@ -27,6 +42,13 @@ class AccountsRepository extends Eloquent implements AccountsRepositoryContract
         });
     }
 
+    /**
+     * Filter by exact slug.
+     *
+     * @param string $slug
+     *
+     * @return $this
+     */
     public function slug($slug)
     {
         return $this->criteria(function ($builder) use ($slug) {
@@ -34,6 +56,13 @@ class AccountsRepository extends Eloquent implements AccountsRepositoryContract
         });
     }
 
+    /**
+     * Filter by account name or account slug (partial for both).
+     *
+     * @param string $search
+     *
+     * @return $this
+     */
     public function search($search)
     {
         return $this->criteria(function ($builder) use ($search) {
