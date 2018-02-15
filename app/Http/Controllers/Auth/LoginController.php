@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\Contracts\User as UserProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -35,5 +39,55 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Redirect the user to the provider authentication page.
+     *
+     * @param string $provider
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToProvider($provider)
+    {
+        return Socialite::driver($provider)->redirect();
+    }
+
+    /**
+     * Obtain the user information from GitHub.
+     *
+     * @param string $provider
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback($provider)
+    {
+        $user = Socialite::driver($provider)->user();
+
+        return $this->loginUsingUserProvider($user);
+    }
+
+    /**
+     * Authenticate using a User Provider by Socialite.
+     *
+     * @param UserProvider $user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    protected function loginUsingUserProvider(UserProvider $user)
+    {
+        $authenticated = User::where('email', $user->getEmail())->first();
+
+        if (empty($authenticated)) {
+            $authenticated = User::create([
+                'name' => $user->getName(),
+                'email' => $user->getEmail(),
+                'password' => md5(time()),
+            ]);
+        }
+
+        Auth::login($authenticated);
+
+        return redirect($this->redirectTo);
     }
 }

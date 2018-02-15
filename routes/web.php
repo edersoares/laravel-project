@@ -21,3 +21,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/tokens', 'Auth\GenerateTokenController@generateForm')->name('tokens.generateForm');
 Route::post('/tokens', 'Auth\GenerateTokenController@generate')->name('tokens.generate');
+
+Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
