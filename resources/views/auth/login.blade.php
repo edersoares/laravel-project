@@ -67,6 +67,7 @@
                     <a class="btn btn-default" href="/login/github">GitHub</a>
                     <a class="btn btn-default" href="/login/facebook">Facebook</a>
                     <a class="btn btn-default" href="/login/linkedin">LinkedIn</a>
+                    <a class="btn btn-default" href="/login/google">Google</a>
 
                 </div>
             </div>
