@@ -61,6 +61,25 @@
                             </div>
                         </div>
                     </form>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-4 text-right">
+                            Login using:
+                        </div>
+
+                        <div class="col-md-6">
+                            <a href="/login/github">GitHub</a>
+                            <span>|</span>
+                            <a href="/login/facebook">Facebook</a>
+                            <span>|</span>
+                            <a href="/login/linkedin">LinkedIn</a>
+                            <span>|</span>
+                            <a href="/login/google">Google</a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
