@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\SomeMessageEvent;
 use Illuminate\Foundation\Inspiring;
 
 /*
@@ -16,3 +17,9 @@ use Illuminate\Foundation\Inspiring;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+Artisan::command('test:broadcast', function () {
+    event(new SomeMessageEvent([
+        'message' => 'Success'
+    ]));
+});
