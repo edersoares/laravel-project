@@ -14,6 +14,11 @@ class SomeMessageEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    /**
+     * Message data.
+     *
+     * @var array
+     */
     public $data;
 
     /**

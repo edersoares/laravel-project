@@ -18,6 +18,11 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
 
+/**
+ * Dispatch a broadcast event.
+ *
+ * @return void
+ */
 Artisan::command('test:broadcast', function () {
     event(new SomeMessageEvent([
         'message' => 'Success'
