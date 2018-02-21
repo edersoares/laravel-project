@@ -2,10 +2,7 @@
 
 namespace App\Providers;
 
-use App\Contracts\Repositories\AccountsRepository;
-use App\Contracts\Repositories\TagsRepository;
 use App\Resolvers\Repositories\AccountsRepositoryResolver;
-use App\Resolvers\Repositories\TagsRepositoryResolver;
 use Illuminate\Support\ServiceProvider;
 
 class TenancyServiceProvider extends ServiceProvider
@@ -28,6 +25,5 @@ class TenancyServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(AccountsRepositoryResolver::getAbstract(), AccountsRepositoryResolver::getConcrete());
-        $this->app->bind(TagsRepositoryResolver::getAbstract(), TagsRepositoryResolver::getConcrete());
     }
 }

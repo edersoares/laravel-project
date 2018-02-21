@@ -18,5 +18,3 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::api('accounts', 'Api\\AccountsController');
-
-Route::middleware('auth:api')->get('tenancy', 'Api\\TenancyController@tags');
