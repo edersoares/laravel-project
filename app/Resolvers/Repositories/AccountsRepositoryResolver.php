@@ -5,6 +5,7 @@ namespace App\Resolvers\Repositories;
 use App\Contracts\Repositories\AccountsRepository;
 use App\Contracts\Resolver;
 use App\Repositories\AccountsRepository as Repository;
+use App\Repositories\AccountsCacheRepository as CacheRepository;
 
 class AccountsRepositoryResolver implements Resolver
 {
@@ -26,7 +27,7 @@ class AccountsRepositoryResolver implements Resolver
     public static function getConcrete()
     {
         return function () {
-            return new Repository();
+            return new CacheRepository(new Repository());
         };
     }
 }
