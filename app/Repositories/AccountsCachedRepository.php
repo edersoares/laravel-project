@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Contracts\Repositories\AccountsRepository as AccountsRepositoryContract;
 use Illuminate\Filesystem\Cache;
 
-class AccountsCacheRepository implements AccountsRepositoryContract
+class AccountsCachedRepository implements AccountsRepositoryContract
 {
     /**
      * @var AccountsRepository
@@ -95,5 +95,18 @@ class AccountsCacheRepository implements AccountsRepositoryContract
         return Cache::remember('accounts.one', $this->expires, function () {
             return $this->repository->one();
         });
+    }
+
+    /**
+     * Return the resources model paginated.
+     *
+     * @param int $page
+     * @param int $show
+     *
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function paginate($page = 1, $show = 10)
+    {
+        return $this->repository->paginate($page, $show);
     }
 }
