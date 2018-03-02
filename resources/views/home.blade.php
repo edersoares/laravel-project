@@ -19,6 +19,15 @@
             </div>
         </div>
     </div>
+    <div class="row justify-content-center mt-3">
+        <passport-clients class="col-md-8"></passport-clients>
+    </div>
+    <div class="row justify-content-center mt-3">
+        <passport-authorized-clients class="col-md-8"></passport-authorized-clients>
+    </div>
+    <div class="row justify-content-center mt-3">
+        <passport-personal-access-tokens class="col-md-8"></passport-personal-access-tokens>
+    </div>
 </div>
 @endsection
 
