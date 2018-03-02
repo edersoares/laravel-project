@@ -73,6 +73,7 @@ services:
       - ./storage/elasticsearch:/usr/share/elasticsearch/data:cached
     environment:
       - discovery.type=single-node
+      - ES_JAVA_OPTS="-Xms1g -Xmx1g"
 
   node:
     image: node
