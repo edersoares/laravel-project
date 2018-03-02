@@ -30,6 +30,49 @@ class AccountsCachedRepository implements AccountsRepositoryContract
     }
 
     /**
+     * @param mixed $attributes
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function create($attributes)
+    {
+        return $this->repository->create($attributes);
+    }
+
+    /**
+     * @param mixed $identifier
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function browse($identifier)
+    {
+        return $this->repository->browse($identifier);
+    }
+
+    /**
+     * @param mixed $identifier
+     * @param mixed $attributes
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function update($identifier, $attributes)
+    {
+        return $this->repository->update($identifier, $attributes);
+    }
+
+    /**
+     * @param mixed $identifier
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     *
+     * @throws \Exception
+     */
+    public function delete($identifier)
+    {
+        return $this->repository->delete($identifier);
+    }
+
+    /**
      * Filter by active accounts.
      *
      * @return AccountsRepository
