@@ -8,7 +8,7 @@ services:
     links:
       - php
     ports:
-      - 8080:80
+      - 80:80
     working_dir: /application
     volumes:
       - ./:/application:cached
@@ -53,6 +53,8 @@ services:
     image: mariadb
     container_name: mariadb
     restart: always
+    ports:
+      - 3306:3306
     volumes:
       - ./storage/database:/var/lib/mysql:cached
     env_file:
@@ -73,7 +75,6 @@ services:
       - ./storage/elasticsearch:/usr/share/elasticsearch/data:cached
     environment:
       - discovery.type=single-node
-      - ES_JAVA_OPTS="-Xms1g -Xmx1g"
 
   node:
     image: node
