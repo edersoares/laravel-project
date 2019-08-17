@@ -8,7 +8,7 @@ services:
     links:
       - php
     ports:
-      - 80:80
+      - 80
     working_dir: /application
     volumes:
       - ./:/application:cached
@@ -54,7 +54,7 @@ services:
     container_name: mariadb
     restart: always
     ports:
-      - 3306:3306
+      - 3306
     volumes:
       - ./storage/database:/var/lib/mysql:cached
     env_file:
@@ -69,8 +69,8 @@ services:
     image: elasticsearch
     container_name: elasticsearch
     ports:
-      - 9200:9200
-      - 9300:9300
+      - 9200
+      - 9300
     volumes:
       - ./storage/elasticsearch:/usr/share/elasticsearch/data:cached
 
